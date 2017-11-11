@@ -1,3 +1,5 @@
+$( document ).ready(function() {
+
 class Hero {
     constructor (name, hp, atk, def){
         this.name = name;
@@ -17,17 +19,35 @@ class Enemy {
 var Player = new Hero ("player",40,10,10);
 var Slime = new Enemy ("slime",15,5,5);
 var Chicken = new Enemy ("chicken", 10,10,2);
+var Turtle = new Enemy ("Turtle", 20,2,7);
+var Wolf = new Enemy ("Wolf", 10,12,2);
 
+var enemies = [Slime,Chicken,Turtle,Wolf]
+var en1=null;
+var en2=null;
+function randomEn() {
 
-console.log(Player)
-function attack (){
+    var r=Math.floor(Math.random()*enemies.length);
+    var r2=Math.floor(Math.random()*enemies.length);
+    en1= enemies[r]
+    en2= enemies[r2]
+    console.log(en1.name,en2)
+}
+randomEn();
+$(".attack").on("click",function (){
     $(".options").show();
-    $(".atenemy1").text( Slime.name)
-    $(".atenemy1").val(Slime) 
-    $(".atenemy2").text( Chicken.name)
-    $(".atenemy2").val(Chicken.name) 
-}
+    $(".atenemy1").text( en1.name)
+    $(".atenemy1").val(en1.name) 
+    $(".atenemy2").text( en2.name)
+    $(".atenemy2").val(en2.name) 
+})
 
-function target(choice){
-    console.log($(".atenemy1").val().name) 
-}
+$(".options button").on("click", function () {
+    if ($(this).val() === en2.name) {
+    console.log("yay!")
+    } else {
+        console.log("nay")
+    }
+    $(".options").hide()
+})
+}); 
