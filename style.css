@@ -1,3 +1,25 @@
-.options {
-    display: none;
+
+.enemyside{
+    height: 500px;
+    width: 500px;
+}
+.Slime {
+    background-color: green;
+    height: 100px;
+    width: 100px;
+}
+.Chicken {
+    background-color: yellow;
+    height: 100px;
+    width: 100px;
+}
+.Wolf {
+    background-color: grey;
+    height: 100px;
+    width: 100px;
+}
+.Turtle {
+    background-color: brown;
+    height: 100px;
+    width: 100px;
 }

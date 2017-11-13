@@ -29,25 +29,61 @@ function randomEn() {
 
     var r=Math.floor(Math.random()*enemies.length);
     var r2=Math.floor(Math.random()*enemies.length);
-    en1= enemies[r]
-    en2= enemies[r2]
-    console.log(en1.name,en2)
-}
-randomEn();
-$(".attack").on("click",function (){
-    $(".options").show();
-    $(".atenemy1").text( en1.name)
-    $(".atenemy1").val(en1.name) 
-    $(".atenemy2").text( en2.name)
-    $(".atenemy2").val(en2.name) 
-})
-
-$(".options button").on("click", function () {
-    if ($(this).val() === en2.name) {
-    console.log("yay!")
-    } else {
-        console.log("nay")
+    en1= Object.assign({},enemies[r]);
+    en2= Object.assign({},enemies[r2]);
+    $(".enemy1").addClass(en1.name);
+    $(".enemy2").addClass(en2.name);
+    if (en1.name===en2.name){
+        en2.name=en2.name+"2";
     }
-    $(".options").hide()
+
+}
+function restart() {
+    if ((en1.hp <= 0 && en2.hp <= 0)){
+        $(".enemy1").removeClass(en1.name);
+        $(".enemy2").removeClass(en2.name);
+        randomEn();
+        $(".enemy1, .enemy2").fadeIn();
+        console.log("yup");
+    }
+}
+
+randomEn();
+
+$(".attack").on("click",function (){
+    $(".atenemy1").text( en1.name)
+    $(".atenemy2").text( en2.name)
+    // $(".options").show();
+    $(".atenemy1 .atenemy2").show();
+    // if (en1.hp <= 0){
+    //     $(".atenemy1").hide();
+    //     restart()
+    // }
+    // if (en2.hp <= 0){
+    //     $(".atenemy2").hide();
+    //     restart()
+    // }
+
+})
+$(".options button").on("click", function () {
+    if ($(this).text() === en1.name) {
+        en1.hp = en1.hp-(Player.atk - en1.def) ;
+        console.log(en1.name +" has " + en1.hp+" hp");
+        if (en1.hp <= 0){
+            $(".enemy1").fadeOut();
+            $(".atenemy1").hide();
+            restart()
+        }
+    } 
+    if ($(this).text() === en2.name) {
+        en2.hp = en2.hp-(Player.atk - en2.def); 
+        console.log(en2.name +" has " + en2.hp +" hp");
+        if (en2.hp <= 0){
+            $(".enemy2").fadeOut();
+            $(".atenemy2").hide();
+            restart()
+        }
+    }
+    // $(".options").hide();
 })
 }); 
